@@ -1,0 +1,416 @@
+<div class="col-lg-12 col-xs-12 appraisal-btns">
+    <div class=" col-md-3 col-xs-6 titre-bloc-collaborateur" style="padding-left: 0px;padding-right: 0px;">
+        <h3 id="assessments" class="pull-left assessment-title">
+            <span ng-bind-html="'PERFORMANCE_ANNUAL_EVALUATION' | translate"> </span>
+        </h3>
+       
+    </div>
+    <!-- toolTip component-->
+         <div class=" col-md-2 col-xs-6" style="padding-left :0" >
+                     <bnpp-tooltip class ="toolTipInfo" 
+                                    tool-tip-placement="bottom"
+                                    tool-tip-icon-color="rgba(45,41,38,0.2)"
+                                    tool-tip-title ="{{'PERFORMANCE_APPRAISAL_TOOLTIP_TITLE' | translate}}"
+                                    tool-tip-body = "{{'PERFORMANCE_APPRAISAL_TOOLTIP_BODY' | translate}}"
+                                    tool-tip-url = "{{'PERFORMANCE_APPRAISAL_TOOLTIP_URL' | translate}}">                                                                       
+                     </bnpp-tooltip>                    
+            </div>   
+    <!-- end toolTip component-->
+ 
+   <div ng-show="(((appraisalSum.overallAppraisal.appraisalRating!=null && appraisalSum.overallAppraisal.appraisalRating.length != 0) ))" class="col-md-offset-6 col-xs-offset-4     titre-bloc-collaborateur scall-Rating" style="padding-left: 0px; ">
+        <p  ng-repeat= "rating in appraisalSum.appraisalRatingSet  | filter : { grade : appraisalSum.overallAppraisal.appraisalRating}" class="pull-right" style="margin-bottom: 0px; margin-top: 20px;">
+                {{'PERFORMANCE_APPRAISAL_RATING' | translate}}  : {{rating.gradeLabel}} </p>
+        
+    </div>
+</div>
+<!--Annual assessment block--> 
+<div class="col-lg-12 col-xs-12 assessment-bloc " ng-init="managerView=true ;" style="display:flex" >
+    
+        
+        <!--Manager section -->
+        <div class="col-md-6 col-xs-12 m-esteem-bloc " style="display:flex">
+                <div ng-show="!isManagerView" style ="width : 100%">
+                    <div class="col-md-12 col-xs-12 bloc-collaborateur bloc-manager " style="height: 100%">
+                        <div>
+                             <h4 ng-bind-html="'PERFORMANCE_MANAGER_APPRECIATION' | translate"> </h4>
+                         </div>
+                        <div   class=" col-md-12 col-xs-12 " style ="font-family: BNPPSans;color: #424242;font-size: 14px;">
+                           <p ng-show="!(( (appraisalSum.overallAppraisal.appraisalSummary!=null && appraisalSum.overallAppraisal.appraisalSummary.length != 0)))" ng-bind-html = "'PERFORMANCE_APPRAISAL_APPRECIATION_NOT_FILLED' | translate" style="font-family: BNPPSans; font-size: 14px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.43; letter-spacing: normal; text-align: center; color: rgb(95, 95, 95); margin-top: 50px;" ></p>
+                            <div ng-show="(( (appraisalSum.overallAppraisal.appraisalSummary!=null && appraisalSum.overallAppraisal.appraisalSummary.length != 0)))">
+                                <div class=" col-md-12 col-xs-12 c-comment">
+                                    <div class="bnpp-panel-heading">
+                                        <div class="title">
+                                            </h4>
+                                            <div class="ed-date">
+                                                <p class="c-date">{{portal2appraisal_info.manager.firstName +' ' +portal2appraisal_info.manager.lastName}} -  {{appraisalSum.overallAppraisal.creationDate}} </p> 
+                                               
+                                                <p ng-show ="appraisalSum.overallAppraisal.modificationDate" class="m-date">({{'PERFORMANCE_APPRAISAL_LAST_MODIFIED_DATE' | translate}}  {{appraisalSum.overallAppraisal.modificationDate}}) </p> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-md-12 col-xs-12 me-comment">
+                                    <p align="center" style ="margin-top :15px; "> 
+                                        <span ng-bind-html="appraisalSum.overallAppraisal.appraisalSummary"></span>                                        
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div ng-show="isManagerView" style ="width : 100%">
+                <div class="col-md-12 col-xs-12 bloc-collaborateur bloc-manager" ng-init="esteemBloc = true;esteemView=true;managerEsteem = true ;managerEsteemBloc=true;editionModeEnabled=true;" style="height: 100%;">
+                    <div ng-show="managerEsteemBloc" ng-init ="editionView=false;">
+                        <div ng-show="managerEsteem">                               
+                        <div ng-show="!(((appraisalSum.overallAppraisal.appraisalRating!=null && appraisalSum.overallAppraisal.appraisalRating.length != 0) || (appraisalSum.overallAppraisal.appraisalSummary!=null && appraisalSum.overallAppraisal.appraisalSummary.length != 0)))">
+                                    <div class=" col-md-12 col-xs-12 c-comment">
+                                        <h4 ng-bind-html="'PERFORMANCE_MANAGER_APPRECIATION' | translate" style ="font-size:17px !important;"> </h4>
+                                    </div>
+                                    <div class=" col-md-12 col-xs-12 ">
+                                        <p ng-if="isInReviewPeriod" style="font-family: BNPPSans; font-size: 14px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.43; letter-spacing: normal; text-align: center; color: rgb(95, 95, 95); margin-top: 50px;" class ="me-comment" ng-bind-html="'PERFORMANCE_APPRAISAL_ENTER_EVALUATION_REQUEST' | translate"> </p>
+                                        <p ng-if="!isInReviewPeriod" style="font-family: BNPPSans; font-size: 14px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.43; letter-spacing: normal; text-align: center; color: rgb(95, 95, 95); margin-top: 50px;" class ="me-comment" ng-bind-html="'PERFORMANCE_APPRAISAL_VOID_ASSESSMENT' | translate"> </p>
+
+                                    </div>
+                                    <div ng-if="isInReviewPeriod" class="edit-profile-summary-button col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <button type="submit" class="btn-bnpp btn-bnpp-default" 
+                                                            ng-class=""
+                                                            style="margin: auto;margin-top: 15%;margin-bottom: 15%;float: none;display: block;"
+                                                            ng-click="goToEditMode()">{{'PERFORMANCE_APPRAISAL_BTN_ENTER_EVALUATION' | translate}}
+                                        </button>
+                                    </div>
+                            </div>
+                            
+                            <!--isEditMode-->
+                        <div ng-show="(((appraisalSum.overallAppraisal.appraisalRating!=null && appraisalSum.overallAppraisal.appraisalRating.length != 0) || (appraisalSum.overallAppraisal.appraisalSummary!=null && appraisalSum.overallAppraisal.appraisalSummary.length != 0)))">
+                                <div class=" col-md-12 col-xs-12 c-comment">
+                                    <div class="bnpp-panel-heading">
+                                        <div class="title">
+                                            <h4 style ="margin-bottom: 0px;"> {{'PERFORMANCE_MANAGER_APPRECIATION' | translate}}
+                                                <a ng-if="isInReviewPeriod" class="btn-icon icon-right pull-right">
+                                                    <span ng-show="editionModeEnabled" 
+                                                            ng-click="goToEditMode(appraisalSum.overallAppraisal.appraisalRating)" 
+                                                            class="bnpp-icon-modifier" 
+                                                            data-target="#navbar-collapse-1"> 
+                                                    </span>
+                                                    <span ng-show="!editionModeEnabled" ng-click="clearCollaboratorComment()" class="bnpp-icon-annuler">
+                                                    </span>
+                                                </a>
+                                            </h4>
+                                            <div class="ed-date">
+                                                <p class="c-date">{{portal2appraisal_info.manager.firstName +' ' +portal2appraisal_info.manager.lastName}} -  {{appraisalSum.overallAppraisal.creationDate}} </p> 
+                                               
+                                                <p ng-show ="appraisalSum.overallAppraisal.modificationDate" class="m-date">({{'PERFORMANCE_APPRAISAL_LAST_MODIFIED_DATE' | translate}}  {{appraisalSum.overallAppraisal.modificationDate}}) </p> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-md-12 col-xs-12 me-comment">
+                                    <p align="center" style ="margin-top :15px; "> 
+                                        <span ng-bind-html="appraisalSum.overallAppraisal.appraisalSummary"></span>                                        
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>                                        
+                        <div ng-show="!managerEsteem" ng-init="editionView=false;saveAppraisal=false">                        
+                                <div ng-show="esteemView">
+                            <div ng-init="editionModeEnabled=true; maxSize =2000; commentCleared=false"></div>
+                                <div ng-init="fullDisplay=true"></div>
+                                <div class="col-md-12 bnpp-panel-h">
+                                    <div class=" bnpp-panel ">
+                                        <div class="bnpp-panel-heading">
+                                            <div class="title">
+                                                <h4 ng-bind-html="'PERFORMANCE_MANAGER_APPRECIATION' | translate"> </h4>
+                                            </div>
+                                            <div class="btn-return">
+                                                <a class="btn-icon">
+                                                    <span ng-show="!editionModeEnabled"
+                                                        ng-click="managerEsteem = !managerEsteem;"
+                                                        class="bnpp-icon-modifier" 
+                                                        data-target="#navbar-collapse-1"> 
+                                                    </span>                                                 
+                                                        <span ng-show="!eView" >
+                                                            <span ng-show="editionModeEnabled" 
+                                                            ng-click="cancel()" 
+                                                            class="bnpp-icon-annuler">
+                                                            </span>
+                                                        </span>
+                                                        <span ng-show="eView" >
+                                                            <span ng-show="editionModeEnabled" 
+                                                            ng-click=" editionView=true;managerEsteem=false;esteemView=!esteemView;editionModeEnabled=false; commentCleared=!commentCleared;" 
+                                                            class="bnpp-icon-annuler">
+                                                            </span>
+                                                        </span>
+                                                </a>
+                                            </div>
+                                        </div>                                                                                                                             
+
+                                        <div class="bnpp-panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class=" btn-group dropdown " id="dropdown-rating" uib-dropdown>
+                                                        <button id="btn-append-to-body" ng-model="selectedRating" type="button" class="btn btn-primary  " uib-dropdown-toggle>
+
+                                                                <span ng-if="!appraisalSum.overallAppraisal.appraisalRating && !ratingScoreEdit" class="col-lg-12 col-xs-12 Langue-dropdown"
+                                                                      style="padding-left: 0px;padding-right: 0px;" >
+                                                                                <p class ="col-lg-11 col-xs-11"> {{'PERFORMANCE_APPRAISAL_ANNUAL_RATING' | translate}} </p>
+                                                                                <span class="col-lg-1 col-xs-1 glyphicon glyphicon-triangle-bottom pull-right"  style=" margin: 0px;"></span>
+                                                                    </span>
+                                                                <span ng-if="appraisalSum.overallAppraisal.appraisalRating || ratingScoreEdit " class="col-lg-12 col-xs-12 Langue-dropdown" >
+                                                                                    <p class ="col-lg-11 col-xs-11 "  ng-repeat= "rating in appraisalSum.appraisalRatingSet  | filter : { grade : ratingScoreEdit}">   {{rating.gradeLabel}}  </p>
+                                                                        <span class="col-lg-1 col-xs-1 glyphicon glyphicon-triangle-bottom pull-right"  style=" margin: 0px;margin: 0px;padding-right: 0px;"></span>
+                                                                </span>
+
+                                                        </button>
+                                                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                                                            <li role="menuitem" ng-repeat="rating in appraisalSum.appraisalRatingSet" ng-click="selectRating(rating.gradeLabel,rating.grade);">
+                                                                <a href="">{{rating.gradeLabel}} </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top: 15px">
+                                                    <bnpp-count-down-text-area
+                                                            max-size="{{maxSize}}"
+                                                            label="{{currentDate | localizeDate : currentLanguage}} "
+                                                            placeholder="{{'PERFORMANCE_APPRAISAL_MANAGER_APPRECIATION_PLACEHOLDER' | translate}}"
+                                                            source="appraisalSummaryEdit"
+                                                            rows="13">
+                                                    </bnpp-count-down-text-area>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="bnpp-panel-footer text-center">
+                                            <a class=" btn-icon">
+                                                <button style="margin: auto; float: none; display: block; margin-top : 6%;"  class="btn-bnpp btn-bnpp-default"
+                                                        ng-click="esteemView=!esteemView;editionView=!editionView ; managerEsteemBloc=!managerEsteemBloc ;editionModeEnabled=!editionModeEnabled;saveAppraisal = true;addItem(ratingScoreEdit,
+                                                       appraisalSummaryEdit);"
+                                                        ng-class="{'btn-bnpp ':!(appraisalSummaryEdit=='') ,'btn-bnpp btn-disabled': (appraisalSummaryEdit=='')}"
+                                                >
+                                                    {{'PERFORMANCE_BTN_VALIDATE' | translate}} </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                        
+                    </div>
+                    <div ng-show="editionView">                 
+                        <div class=" col-md-12 col-xs-12 c-comment">
+                            <div class="bnpp-panel-heading">
+                                <div class="title">
+                                    <h4 style ="margin-bottom: 0px;"> {{'PERFORMANCE_MANAGER_APPRECIATION' | translate}}
+                                        <a class="btn-icon icon-right pull-right">
+                                            <span ng-show="!editionModeEnabled" 
+                                                ng-click="esteemView=true;editionView=!editionView;eView=true;managerEsteemBloc=true;
+                                                managerEsteem=false;editionModeEnabled=true" class="bnpp-icon-modifier" data-target="#navbar-collapse-1"> 
+                                                                    </span>
+                                            <span ng-show="editionModeEnabled" ng-click=" managerEsteem=!managerEsteem;" class="bnpp-icon-annuler">
+                                                                    </span>
+                                        </a>
+                                    </h4>
+                                    <div class="ev-date">
+                                        
+                                       <p class="c-date">  </p> {{portal2appraisal_info.manager.firstName +' ' +portal2appraisal_info.manager.lastName}} - {{appraisalSum.overallAppraisal.creationDate}} <br>
+                                         <p ng-show ="appraisalSum.overallAppraisal.modificationDate" class="m-date" 
+                                         style = "font-weight:100;color: #9B9B9B ;font-size: 14px; font-family: BNPP Sans;">
+                                         ({{'PERFORMANCE_APPRAISAL_LAST_MODIFIED_DATE' | translate}}  {{appraisalSum.overallAppraisal.modificationDate}}) </p>                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-md-12 col-xs-12 me-comment"style ="margin-top :15px;"> 
+                            <p> <span ng-bind-html="appraisalSum.overallAppraisal.appraisalSummary"></span>                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!--End Manager section -->
+
+         <!--START COLLABORATOR COMMENT SECTION -->
+        <div class="col-md-6 col-xs-12 c-comment-bloc" style="display:flex">        
+            <div class="col-md-12 col-xs-12 bloc-collaborateur bloc-collab"  style="height: 100%">
+               <!-- isManagerView : {{isManagerView}}<br>
+                isExistComment : {{isExistComment}}<br>
+                isOnEditionCommentMode : {{isOnEditionCommentMode}}<br>
+                appraisalComment.content : {{appraisalComment.content}}<br>
+                isInReviewPeriod : {{isInReviewPeriod}}<br>
+                 appraisalCollaboratorComment : {{ appraisalCollaboratorComment.length ==0 }}-->
+                     <div ng-show="isManagerView" style ="width : 100%">
+                            <div ng-show="(isExistComment || appraisalComment.content) ">
+                                <div class=" col-md-12 col-xs-12 c-comment">
+                                    <h4 ng-bind-html="'PERFORMANCE_MY_COMMENTS_EVALUATIONS' | translate" style="margin-bottom:0px;font-size: 17px!important;"> </h4>
+                                </div>
+                                <div class="ev-date">
+                                     777   
+                                     appraisalComment.creationDate :: {{appraisalComment.creationDate}}
+                                          <p  ng-show ="appraisalComment.creationDate"  class="c-date">{{portal2appraisal_info.visited_collab.firstName +' ' +portal2appraisal_info.visited_collab.lastName}} - {{appraisalComment.creationDate}}  </p> 
+                                          <p ng-show ="commentlastModificationDate" class="m-date">( {{'PERFORMANCE_APPRAISAL_LAST_MODIFIED_DATE' | translate}}  {{commentlastModificationDate}})  </p>
+                                                                       
+                                 </div>
+                                 
+                                <div ng-show ="appraisalComment.content" class=" col-md-12 col-xs-12 collab-comment"style ="margin-top :15px;"> 
+                                    <p> <span ng-bind-html="appraisalComment.content"></span> </p>
+                                </div>
+                                 <div ng-if ="!(appraisalComment.content)" class=" col-md-12 col-xs-12 collab-no-comment"style ="margin-top :15px;"> 
+                                    <p> No comment for this year </p>
+                                  </div>
+                               
+                                                    <!--div ng-show="!mView" class="edit-profile-summary-button col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" class="btn-bnpp btn-bnpp-default" ng-class="" ng-click="assessComment=!assessComment">{{'PERFORMANCE_APPRAISAL_BTN_ENTER_COMMENT' | translate}}
+                                                </button>
+                                </div-->
+                             </div>
+
+                           <div ng-show="!(isExistComment || appraisalComment.content) ">
+                                <div class=" col-md-12 col-xs-12 c-comment">
+                                    <h4 ng-bind-html="'PERFORMANCE_MY_COMMENTS_EVALUATIONS' | translate" style="margin-bottom:0px;font-size: 17px!important;"> </h4>
+                                </div>
+                              
+                                <div class=" col-md-12 col-xs-12 collab-comment"style ="margin-top :15px; "> 
+                    
+                                    <div ng-if ="!(appraisalComment.content)" class=" col-md-12 col-xs-12 collab-no-comment"style ="margin-top :15px;"> 
+                                    <p> No comment for this year </p>
+                                  </div>
+                                </div>                                        
+                            </div>                           
+                     </div>
+                            
+
+                    <div ng-show="!isManagerView" style ="width : 100%">
+                         <div ng-show="isExistComment || appraisalComment.content"> 
+                                <div ng-show="!isOnEditionCommentMode">
+                                    <div class=" col-md-12 col-xs-12 c-comment">
+                                        <div class="bnpp-panel-heading">
+                                            <div class="title">
+                                                <h4 style ="margin-bottom: 0px;"> {{'PERFORMANCE_MY_COMMENTS_EVALUATIONS' | translate}}
+                                                    <a ng-if="isInReviewPeriod" class="btn-icon icon-right pull-right">
+                                                        <span   ng-click="switchEditCommentMode()" 
+                                                                class="bnpp-icon-modifier" 
+                                                                data-target="#navbar-collapse-1"> 
+                                                        </span>                                                     
+                                                    </a>
+                                                </h4>
+                                                <div class="ed-date"> 
+                                                    666  
+                                                    isInReviewPeriod : {{isInReviewPeriod}}        
+                                                    appraisalComment.modificationDate : {{appraisalComment.modificationDate}}                                                                                            
+                                                      <p  ng-show ="appraisalComment.creationDate"  class="c-date">{{portal2appraisal_info.visited_collab.firstName +' ' +portal2appraisal_info.visited_collab.lastName}} - {{appraisalComment.creationDate}}  </p> 
+                                                     <div>
+                                                     <p ng-if ="commentlastModificationDate" class="m-date">( {{'PERFORMANCE_APPRAISAL_LAST_MODIFIED_DATE' | translate}}  {{commentlastModificationDate}})  </p> 
+                                                     <p ng-if ="appraisalComment.modificationDate" class="m-date">( {{'PERFORMANCE_APPRAISAL_LAST_MODIFIED_DATE' | translate}}  {{appraisalComment.modificationDate}})  </p>                                                                                   
+                                                     </div>   
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                  <!--  <div class=" col-md-12 col-xs-12 collab-comment">                                        
+                                        <p align="center" style ="margin-top :15px; "> 
+                                            <p> <span ng-bind-html="appraisalComment.content"></span> </p>
+                                        </p>
+                                    </div>-->
+
+                                     
+                                        <div ng-show ="appraisalComment.content" class=" col-md-12 col-xs-12 collab-comment"style ="margin-top :15px;"> 
+                                            <p> <span ng-bind-html="appraisalComment.content"></span> </p>
+                                        </div>
+                                        <div ng-if ="!(appraisalComment.content)" class=" col-md-12 col-xs-12 collab-no-comment"style ="margin-top :15px;"> 
+                                            <p> No comment for this year </p>
+                                        </div>
+
+                                </div>
+                                  <div ng-show="!collaboratorAppraisalComment">      
+									  <div ng-show="isOnEditionCommentMode">                     
+												<div ng-init="fullDisplay=true"></div>
+												<div class="col-md-12 bnpp-panel-h">
+													<div class=" bnpp-panel ">
+														<div class="bnpp-panel-heading">
+															<div class="title">
+																<h4 ng-bind-html="'PERFORMANCE_MY_COMMENTS_EVALUATIONS' | translate"> </h4>
+															</div>
+															<div class="btn-return">
+																<a class="btn-icon">                                                           
+																   
+																	<span ng-click="switchEditCommentMode();" 
+																		  class="bnpp-icon-annuler"> 
+																	</span>
+																  
+																</a>
+															</div>
+														</div>
+
+														<div class="bnpp-panel-body">
+															<div class="row">
+																<div class="col-md-12">
+																  
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-12" style="margin-top: 15px">
+																	<bnpp-count-down-text-area 
+																				max-size="{{maxSize}}" 
+																				label="{{currentDate | localizeDate : currentLanguage}} " 
+																				placeholder="{{'PERFORMANCE_APPRAISAL_APPRAISAL_COMMENT_PLACEHOLDER' | translate}}" 
+																				source="appraisalCollaboratorComment" 
+																				rows="13">
+																	</bnpp-count-down-text-area>
+																</div>
+															</div>
+
+														</div>
+													   
+														<div class="bnpp-panel-footer text-center">
+															<a class=" btn-icon">
+																<button style="margin: auto; float: none; display: block; margin-top : 6%;" 
+																class="btn-bnpp btn-bnpp-default" 
+																ng-click="addComment();" 
+																ng-class="{'btn-bnpp ':!(appraisalCollaboratorComment.length ==0 || appraisalCollaboratorComment == appraisalComment.content ) ,'btn-bnpp btn-disabled': (appraisalCollaboratorComment.length==0 || appraisalCollaboratorComment == appraisalComment.content)}">
+																	{{'PERFORMANCE_BTN_VALIDATE' | translate}} </button>
+															</a>
+														</div>
+													</div>
+												</div>                               
+									 </div>
+								  </div>
+                        </div>
+
+                       
+                       <div ng-show="!(isExistComment || appraisalComment.content) "> 
+                               <div class=" col-md-12 col-xs-12 c-comment">
+                                            <h4 ng-bind-html="'PERFORMANCE_MY_COMMENTS_EVALUATIONS' | translate" style ="font-size:17px !important;"> </h4>
+                                        </div>
+                                      555
+
+                                       appraisalComment.content :: {{appraisalComment.content}}
+                                       isInReviewPeriod :: {{isInReviewPeriod}}
+                                        <div ng-show="isInReviewPeriod"   class="edit-profile-summary-button col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <button type="submit" class="btn-bnpp btn-bnpp-default" 
+                                                                ng-class=""
+                                                                style="margin: auto;margin-top: 15%;margin-bottom: 15%;float: none;display: block;"
+                                                                ng-click="isExistComment=!isExistComment;isOnEditionCommentMode=!isOnEditionCommentMode">
+                                                                {{'PERFORMANCE_APPRAISAL_COMMENT_ADD_BTN' | translate}}
+                                            </button>
+                                        </div>
+                                         <div ng-show="!isInReviewPeriod"  class="edit-profile-summary-button col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                              <div class=" col-md-12 col-xs-12 collab-no-comment"style ="margin-top :15px;"> 
+                                                        <p> Out of review period  </p>
+                                                  </div>
+                                        </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <!--END COLLABORATOR COMMENT SECTION -->
+  
+  
+</div>  
