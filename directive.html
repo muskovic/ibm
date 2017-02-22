@@ -142,15 +142,7 @@ function formatDate(strDate) {
     return $filter('date')(new Date(strDate.replace(/ /g, 'T')), 'dd/MM/yyyy');
 }
 
-
-function onLoadPage() {
-    var object = new Object();
-    var tmp = $('#content-wrapper').css('top');
-    var positionTopOfContent = tmp.substr(0, (tmp.length-2));
-    alert($('#content-wrapper').height());
-    object.heighWrapperContent = $('#content-wrapper').height();
-
-    return object;
+return object;
 }
 function goToEditMode(ratingScoreEdit){
     $scope.ratingScoreEdit =ratingScoreEdit;  
